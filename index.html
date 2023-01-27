@@ -1,0 +1,729 @@
+
+    <html>
+    <head>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,900' rel='stylesheet' type='text/css'>
+    <link href="style.css" rel="stylesheet">
+    <title>Make-An-Audio: Text-To-Audio Generation with Prompt-Enhanced Diffusion Models</title>
+    </head>
+    <body>
+
+        <div id="header" class="container-fluid">
+            <div class="row" style="text-align: center;"/>
+            <!--<div class="logoimg">
+                <img src="meta_logo.png" height="95">
+                <img src="huji_logo.png" height="95">
+            </div>-->
+            <div class="row">
+                <h1>Make-An-Audio: Text-To-Audio Generation with Prompt-Enhanced Diffusion Models</h1>
+                <div class="authors">
+                    <a href="">Anonymous</a><sup>1</sup>
+                </div>
+        
+                <br>
+
+        
+                <div class="assets">
+                    <a href="https://openreview.net/pdf?id=Srbl4AuTyd" target="_blank">[paper]</a>
+                    <a href="待定" target="_blank">[code]</a>
+                </div>
+            </div>
+        </div>
+
+    <div class="container">
+        <h2>Abstract</h2>
+        <span>
+            Large-scale multimodal generative modeling has created milestones in text-to-image and text-to-video generation. Its application to audio still lags behind due to two main reasons: the lack of large-scale datasets with high-quality text-audio pairs, and the complexity of modeling long continuous audio data. In this work, we propose Make-An-Audio with a prompt-enhanced diffusion model that addresses these gaps by 1) introducing pseudo prompt enhancement with a distill-then-reprogram approach which alleviates the data scarcity by using weekly-supervised data with language-free audios; 2) leveraging spectrogram autoencoder to predict the self-supervised audio representation instead of waveforms. Together with robust contrastive language-audio pretraining (CLAP) representations, Make-An-Audio achieves state-of-the-art results in both objective and subjective evaluation. Moreover, we present its controllability with classifier-free guidance and generalization for X-to-Audio with \textbf{``No Modality Left Behind''}, for the first time unlocking the ability to generate high-definition, high-fidelity audios given a user-defined modality input.
+        </span>
+    </div>
+
+    <div class="container">
+        <h2>Samples</h2>
+        <div class="text-center">
+            <video width="80%" controls="">
+                <source src="待定" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <div class="container" id="abstractdiv">
+        <h2>Architecture</h2>
+        <img src="./make-an-audio-arch.png" width="100%">
+    </div>
+    
+    
+    <div class="container" id="abstractdiv">
+        <h2>Samples: comparison to prior work</h2>
+        
+        <table class="table table-responsive">
+            <thead>
+            <tr class="text-center">
+                
+                <td>desc</td>
+                
+                <td><b>Make-An-Audio</b></td>
+                
+                <td>DiffSound</td>
+                
+                <td>Ground Truth</td>
+                
+            </tr>
+            </thead>
+
+            <tbody>
+            
+            
+            <tr class="pure-table-odd">
+              
+                <td>a cat meowing and young female speaking</td>                
+                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/txt2audio/ta40e85/a-cat-meowing-and-young-female-speaking.wav" type="audio/mpeg"></audio></td>               
+                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/diffsound/a-cat-meowing-and-young-female-speaking.wav" type="audio/mpeg"></audio></td>                
+                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/txt2audio/gt/a-cat-meowing-and-young-female-speaking.wav" type="audio/mpeg"></audio></td>
+                                
+            </tr>
+            
+            
+            <tr>
+                
+                
+                <td>a chainsaw cutting as wood cracks and creaks</td>
+                
+                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/txt2audio/ta40e85/a-chainsaw-cutting-as-wood-cracks-and-creaks.wav" type="audio/mpeg"></audio></td>
+
+
+
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/diffsound/a-chainsaw-cutting-as-wood-cracks-and-creaks.wav" type="audio/mpeg"></audio></td>
+                
+                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/txt2audio/gt/a-chainsaw-cutting-as-wood-cracks-and-creaks.wav" type="audio/mpeg"></audio></td>                
+            </tr>
+            
+            
+            <tr class="pure-table-odd">
+                
+                
+                <td>a crowd of people shout and give applause</td>                
+                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/txt2audio/ta40e85/a-crowd-of-people-shout-and-give-applause.wav" type="audio/mpeg"></audio></td>                  
+                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/diffsound/a-crowd-of-people-shout-and-give-applause.wav" type="audio/mpeg"></audio></td>
+                                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/txt2audio/gt/a-crowd-of-people-shout-and-give-applause.wav" type="audio/mpeg"></audio></td>
+                
+                
+            </tr>
+            
+            
+            <tr>
+            
+                <td>a group of sheep are baaing</td>                
+                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/txt2audio/ta40e85/a-group-of-sheep-are-baaing.wav" type="audio/mpeg"></audio></td>                
+                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/diffsound/a-group-of-sheep-are-baaing.wav" type="audio/mpeg"></audio></td>
+                                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/txt2audio/gt/a-group-of-sheep-are-baaing.wav" type="audio/mpeg"></audio></td>
+                
+            </tr>
+            
+            
+            <tr class="pure-table-odd">
+                
+                <td>a man speaks as birds chirp and dogs bark</td>
+                                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/txt2audio/ta40e85/a-man-speaks-as-birds-chirp-and-dogs-bark.wav" type="audio/mpeg"></audio></td>
+                                 
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/diffsound/a-man-speaks-as-birds-chirp-and-dogs-bark.wav" type="audio/mpeg"></audio></td>
+                                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/txt2audio/gt/a-man-speaks-as-birds-chirp-and-dogs-bark.wav" type="audio/mpeg"></audio></td>
+                                
+            </tr>
+            
+            
+            <tr>
+    
+                <td>Engine noise with other engines passing by</td>
+                
+                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/txt2audio/ta40e85/Engine-noise-with-other-engines-passing-by.wav" type="audio/mpeg"></audio></td>
+                
+                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/diffsound/Engine-noise-with-other-engines-passing-by.wav" type="audio/mpeg"></audio></td>
+                
+                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/txt2audio/gt/Engine-noise-with-other-engines-passing-by.wav" type="audio/mpeg"></audio></td>
+                
+                
+            </tr>
+            
+            
+            <tr class="pure-table-odd">
+            
+                                
+                <td>drums and music playing with a man speaking</td>
+                                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/txt2audio/ta40e85/drums-and-music-playing-with-a-man-speaking.wav" type="audio/mpeg"></audio></td>
+                                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/diffsound/drums-and-music-playing-with-a-man-speaking.wav" type="audio/mpeg"></audio></td>
+                                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/txt2audio/gt/drums-and-music-playing-with-a-man-speaking.wav" type="audio/mpeg"></audio></td>
+                              
+            </tr>
+            
+            
+            <tr>
+                                            
+                <td>fireworks pop and explode</td>
+                                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/txt2audio/ta40e85/fireworks-pop-and-explode.wav" type="audio/mpeg"></audio></td>
+                
+                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/diffsound/fireworks-pop-and-explode.wav" type="audio/mpeg"></audio></td>
+                
+                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/txt2audio/gt/fireworks-pop-and-explode.wav" type="audio/mpeg"></audio></td>
+                
+                
+            </tr>
+            
+            
+            <tr class="pure-table-odd">
+                            
+                
+                <td>ocean waves crashing as wind blows into a microphone</td>
+                
+                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/txt2audio/ta40e85/ocean-waves-crashing-as-wind-blows-into-a-microphone.wav" type="audio/mpeg"></audio></td>
+                
+                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/diffsound/ocean-waves-crashing-as-wind-blows-into-a-microphone.wav" type="audio/mpeg"></audio></td>
+                
+                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/txt2audio/gt/ocean-waves-crashing-as-wind-blows-into-a-microphone.wav" type="audio/mpeg"></audio></td>
+                
+                
+            </tr>
+            
+            
+            <tr>
+            
+               
+                <td>sirens and a humming engine approach and pass</td>
+                                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/txt2audio/ta40e85/sirens-and-a-humming-engine-approach-and-pass.wav" type="audio/mpeg"></audio></td>
+                                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/diffsound/sirens-and-a-humming-engine-approach-and-pass.wav" type="audio/mpeg"></audio></td>
+                                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/txt2audio/gt/sirens-and-a-humming-engine-approach-and-pass.wav" type="audio/mpeg"></audio></td>
+                                
+            </tr>
+            
+            
+            <tr class="pure-table-odd">
+                                             
+                <td>thunder as rain falling down</td>
+                
+                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/txt2audio/ta40e85/thunder-as-rain-falling-down.wav" type="audio/mpeg"></audio></td>
+                
+                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/diffsound/thunder-as-rain-falling-down.wav" type="audio/mpeg"></audio></td>
+                
+                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/txt2audio/gt/thunder-as-rain-falling-down.wav" type="audio/mpeg"></audio></td>
+                
+                
+            </tr>
+            
+            
+            <tr>
+                                            
+                <td>Train passing followed by short honk</td>
+                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/txt2audio/ta40e85/Train-passing-followed-by-short-honk.wav" type="audio/mpeg"></audio></td>
+                                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/diffsound/Train-passing-followed-by-short-honk.wav" type="audio/mpeg"></audio></td>
+                                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/txt2audio/gt/Train-passing-followed-by-short-honk.wav" type="audio/mpeg"></audio></td>
+                               
+            </tr>
+            
+            
+            <tr class="pure-table-odd">
+                                         
+                <td>Water flowing down a river</td>
+                
+                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/txt2audio/ta40e85/Water-flowing-down-a-river.wav" type="audio/mpeg"></audio></td>
+               
+                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/diffsound/Water-flowing-down-a-river.wav" type="audio/mpeg"></audio></td>
+                
+                
+                
+                <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/txt2audio/gt/Water-flowing-down-a-river.wav" type="audio/mpeg"></audio></td>
+                
+                
+            </tr>
+
+            <tr class="pure-table-odd">
+                                            
+              <td>a surface is rubbed and an object is tapped</td>
+                            
+              
+              <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/txt2audio/ta40e85/a-surface-is-rubbed-and-an-object-is-tapped.wav" type="audio/mpeg"></audio></td>             
+              
+              
+              <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/diffsound/a-surface-is-rubbed-and-an-object-is-tapped.wav" type="audio/mpeg"></audio></td>
+                            
+              
+              <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/txt2audio/gt/a-surface-is-rubbed-and-an-object-is-tapped.wav" type="audio/mpeg"></audio></td>              
+          </tr>
+
+          <tr class="pure-table-odd">
+            
+                
+            <td>a man is speaking while typing on a keyboard</td>
+                        
+            
+            <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/txt2audio/ta40e85/a-man-is-speaking-while-typing-on-a-keyboard.wav" type="audio/mpeg"></audio></td>
+                       
+            
+            <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/diffsound/a-man-is-speaking-while-typing-on-a-keyboard.wav" type="audio/mpeg"></audio></td>
+                        
+            
+            <td class="text-center"><audio controls="" style="width: 300px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/txt2audio/gt/a-man-is-speaking-while-typing-on-a-keyboard.wav" type="audio/mpeg"></audio></td>
+                        
+        </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="container" id="abstractdiv">
+        <h2>Samples: Audio Inpainting</h2>
+        
+        <table class="table table-responsive">
+            <thead>
+            <tr class="text-center">
+                
+                <td><b>Inpainted Audio</b></td>
+                
+                <td>Corrupted Audio</td>
+                
+                <td>Ground Truth Audio</td>
+                
+            </tr>
+            </thead>
+  
+            <tbody>
+            <tr class="pure-table-odd">
+            
+                <td class="text-center"><img src="inpaint/trim_mel/Y_BSmz3SEW1w_sample_.png" ></td>               
+                
+                
+                <td class="text-center"><img src="inpaint/trim_mel/Y_BSmz3SEW1w_mix_0.png" width="400" height="80"></td>                
+                
+                
+                <td class="text-center"><img src="inpaint/trim_mel/Y_BSmz3SEW1w_gt_.png" ></td>
+                                
+            </tr>            
+            
+            <tr class="pure-table-odd">
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="inpaint/6_07e30s/Y_BSmz3SEW1w_sample_.wav" type="audio/mpeg"></audio></td>               
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="inpaint/6_07e30s/Y_BSmz3SEW1w_mix.wav" type="audio/mpeg"></audio></td>                
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="inpaint/6_07e30s/Y_BSmz3SEW1w_gt.wav" type="audio/mpeg"></audio></td>
+                                
+            </tr>
+            <tr class="pure-table-odd">
+            
+                <td class="text-center"><img src="inpaint/trim_mel/Y3qTL7QRk-tg_sample_.png" ></td>               
+                
+                
+                <td class="text-center"><img src="inpaint/trim_mel/Y3qTL7QRk-tg_mix_0.png" width="400" height="80"></td>                
+                
+                
+                <td class="text-center"><img src="inpaint/trim_mel/Y3qTL7QRk-tg_gt_.png" ></td>
+                                
+            </tr>            
+            
+            <tr class="pure-table-odd">
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="inpaint/6_07e30s/Y3qTL7QRk-tg_sample_.wav" type="audio/mpeg"></audio></td>               
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="inpaint/6_07e30s/Y3qTL7QRk-tg_mix.wav" type="audio/mpeg"></audio></td>                
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="inpaint/6_07e30s/Y3qTL7QRk-tg_gt.wav" type="audio/mpeg"></audio></td>
+                                
+            </tr>
+            <tr class="pure-table-odd">
+            
+                <td class="text-center"><img src="inpaint/trim_mel/Y6CDl4CqOgMg_sample_.png" ></td>               
+                
+                
+                <td class="text-center"><img src="inpaint/trim_mel/Y6CDl4CqOgMg_mix_0.png" width="400" height="80"></td>                
+                
+                
+                <td class="text-center"><img src="inpaint/trim_mel/Y6CDl4CqOgMg_gt_.png" ></td>
+                                
+            </tr>            
+            
+            <tr class="pure-table-odd">
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="inpaint/6_07e30s/Y6CDl4CqOgMg_sample_.wav" type="audio/mpeg"></audio></td>               
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="inpaint/6_07e30s/Y6CDl4CqOgMg_mix.wav" type="audio/mpeg"></audio></td>                
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="inpaint/6_07e30s/Y6CDl4CqOgMg_gt.wav" type="audio/mpeg"></audio></td>
+                                
+            </tr>
+            <tr class="pure-table-odd">
+            
+                <td class="text-center"><img src="inpaint/trim_mel/YatmDP_fmK_8_sample_.png" ></td>               
+                
+                
+                <td class="text-center"><img src="inpaint/trim_mel/YatmDP_fmK_8_mix_0.png" width="400" height="80"></td>                
+                
+                
+                <td class="text-center"><img src="inpaint/trim_mel/YatmDP_fmK_8_gt_.png" ></td>
+                                
+            </tr>            
+            
+            <tr class="pure-table-odd">
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="inpaint/6_07e30s/YatmDP_fmK_8_sample_.wav" type="audio/mpeg"></audio></td>               
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="inpaint/6_07e30s/YatmDP_fmK_8_mix.wav" type="audio/mpeg"></audio></td>                
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="inpaint/6_07e30s/YatmDP_fmK_8_gt.wav" type="audio/mpeg"></audio></td>
+                                
+            </tr>
+            <tr class="pure-table-odd">
+            
+                <td class="text-center"><img src="inpaint/trim_mel/YBGEMgl1xjac_sample_.png" ></td>               
+                
+                
+                <td class="text-center"><img src="inpaint/trim_mel/YBGEMgl1xjac_mix_0.png" width="400" height="80"></td>                
+                
+                
+                <td class="text-center"><img src="inpaint/trim_mel/YBGEMgl1xjac_gt_.png" ></td>
+                                
+            </tr>            
+            
+            <tr class="pure-table-odd">
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="inpaint/6_07e30s/YBGEMgl1xjac_sample_.wav" type="audio/mpeg"></audio></td>               
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="inpaint/6_07e30s/YBGEMgl1xjac_mix.wav" type="audio/mpeg"></audio></td>                
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="inpaint/6_07e30s/YBGEMgl1xjac_gt.wav" type="audio/mpeg"></audio></td>
+                                
+            </tr>
+            <tr class="pure-table-odd">
+            
+                <td class="text-center"><img src="inpaint/trim_mel/YBz9Y5nZK3eo_sample_.png" ></td>               
+                
+                
+                <td class="text-center"><img src="inpaint/trim_mel/YBz9Y5nZK3eo_mix_0.png" width="400" height="80"></td>                
+                
+                
+                <td class="text-center"><img src="inpaint/trim_mel/YBz9Y5nZK3eo_gt_.png" ></td>
+                                
+            </tr>            
+            
+            <tr class="pure-table-odd">
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="inpaint/6_07e30s/YBz9Y5nZK3eo_sample_.wav" type="audio/mpeg"></audio></td>               
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="inpaint/6_07e30s/YBz9Y5nZK3eo_mix.wav" type="audio/mpeg"></audio></td>                
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="inpaint/6_07e30s/YBz9Y5nZK3eo_gt.wav" type="audio/mpeg"></audio></td>
+                                
+            </tr>
+          </tbody>
+        </table>
+    </div>
+  
+    <div class="container" id="abstractdiv">
+        <h2>Image to audio: use clip encoder to generate audio from image</h2>
+        Examples of image to audio given 1 image and gen audio from image.
+        <table class="table table-responsive">
+
+            <tbody>
+            
+            
+            <tr class="pure-table-odd">
+                
+                <td class="text-center"><img src="https://make-an-audio.s3.us-east-2.amazonaws.com/img2audio/a+photo+of+cat.png" width="320" height="320"></td>
+                
+                
+                <td class="text-center"><img src="https://make-an-audio.s3.us-east-2.amazonaws.com/img2audio/a+photo+of+race+car.png" width="320" height="320"></td>
+            
+            
+                <td class="text-center"><img src="https://make-an-audio.s3.us-east-2.amazonaws.com/img2audio/alarm.png" width="320" height="320"></td>
+
+
+                <td class="text-center"><img src="https://make-an-audio.s3.us-east-2.amazonaws.com/img2audio/a+photo+of+waterfall.png" width="320" height="320"></td>
+            </tr>
+
+            <tr>
+                
+                <td class="text-center"><audio controls="" style="width: 320px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/img2audio/a+photo+of+cat.wav" type="audio/mpeg"></audio></td>
+                
+                                
+                <td class="text-center"><audio controls="" style="width: 320px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/img2audio/a+photo+of+race+car.wav" type="audio/mpeg"></audio></td>
+                
+                
+                <td class="text-center"><audio controls="" style="width: 320px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/img2audio/alarm.wav" type="audio/mpeg"></audio></td>
+                
+
+                <td class="text-center"><audio controls="" style="width: 320px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/img2audio/a+photo+of+waterfall.wav" type="audio/mpeg"></audio></td>
+            </tr>
+            <tr></tr>
+
+            <tr class="pure-table-odd">
+        
+            <td class="text-center"><img src="https://make-an-audio.s3.us-east-2.amazonaws.com/img2audio/bird.png" width="320" height="320"></td>
+            
+                            
+            <td class="text-center"><img src="https://make-an-audio.s3.us-east-2.amazonaws.com/img2audio/thunder+lightning.png" width="320" height="320"></td>
+        
+        
+            <td class="text-center"><img src="https://make-an-audio.s3.us-east-2.amazonaws.com/img2audio/wind.png" width="320" height="320"></td>
+
+
+            <td class="text-center"><img src="https://make-an-audio.s3.us-east-2.amazonaws.com/img2audio/shatter.png" width="320" height="320"></td>
+        </tr>
+
+        <tr>
+                        
+            <td class="text-center"><audio controls="" style="width: 320px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/img2audio/bird.wav" type="audio/mpeg"></audio></td>
+            
+            
+            <td class="text-center"><audio controls="" style="width: 320px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/img2audio/thunder+lightning.wav" type="audio/mpeg"></audio></td>
+            
+                        
+            <td class="text-center"><audio controls="" style="width: 320px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/img2audio/wind.wav" type="audio/mpeg"></audio></td>
+
+            
+            <td class="text-center"><audio controls="" style="width: 320px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/img2audio/shatter.wav" type="audio/mpeg"></audio></td>
+        </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="container" id="abstractdiv">
+    <h2>Video: use clip encoder to generate audio from video</h2>
+    Examples of image to audio given 1 image and gen audio from image.
+    <table class="table table-responsive">
+
+        <tbody>
+            
+        
+        <tr class="pure-table-odd">
+                
+            <td class="text-center"><video width="320" height="240" controls>
+                <source src="https://make-an-audio.s3.us-east-2.amazonaws.com/video2audio/babycrying_0.mp4" type="video/mp4">
+            </video></td>
+            
+            
+            <td class="text-center"><video width="320" height="240" controls>
+                <source src="https://make-an-audio.s3.us-east-2.amazonaws.com/video2audio/church+bell_0.mp4" type="video/mp4">
+            </video></td>
+        
+        
+            <td class="text-center"><video width="320" height="240" controls>
+                <source src="https://make-an-audio.s3.us-east-2.amazonaws.com/video2audio/fireworks_0.mp4" type="video/mp4">
+            </video></td>
+
+
+            <td class="text-center"><video width="320" height="240" controls>
+                <source src="https://make-an-audio.s3.us-east-2.amazonaws.com/video2audio/typing_clip_0.mp4" type="video/mp4">
+            </video></td>
+        </tr>
+
+        <tr>
+            
+            <td class="text-center"><audio controls="" style="width: 320px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/video2audio/babycrying.wav" type="audio/mpeg"></audio></td>
+            
+            
+            <td class="text-center"><audio controls="" style="width: 320px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/video2audio/church+bell.wav" type="audio/mpeg"></audio></td>
+            
+            
+            <td class="text-center"><audio controls="" style="width: 320px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/video2audio/fireworks.wav" type="audio/mpeg"></audio></td>
+            
+
+            <td class="text-center"><audio controls="" style="width: 320px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/video2audio/typing_clip.wav" type="audio/mpeg"></audio></td>
+        </tr>
+        <tr></tr>
+
+        <tr class="pure-table-odd">
+            <td class="text-center"><video width="320" height="240" controls>
+            <source src="https://make-an-audio.s3.us-east-2.amazonaws.com/video2audio/playing+snare+drum_0.mp4" type="video/mp4">
+            </video></td>
+            
+            
+            <td class="text-center"><video width="320" height="240" controls>
+            <source src="https://make-an-audio.s3.us-east-2.amazonaws.com/video2audio/railroad+car+train+wagon_0.mp4" type="video/mp4">
+            </video></td>
+        
+        
+            <td class="text-center"><video width="320" height="240" controls>
+            <source src="https://make-an-audio.s3.us-east-2.amazonaws.com/video2audio/sheep_clip_0.mp4" type="video/mp4">
+            </video></td>
+                        
+            <td class="text-center"><video width="320" height="240" controls>
+            <source src="https://make-an-audio.s3.us-east-2.amazonaws.com/video2audio/violin_0.mp4" type="video/mp4">
+            </video></td>
+
+        </tr>
+
+        <tr>
+            
+            <td class="text-center"><audio controls="" style="width: 320px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/video2audio/playing+snare+drum.wav" type="audio/mpeg"></audio></td>
+            
+            
+            <td class="text-center"><audio controls="" style="width: 320px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/video2audio/railroad+car+train+wagon.wav" type="audio/mpeg"></audio></td>
+            
+                        
+            <td class="text-center"><audio controls="" style="width: 320px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/video2audio/sheep_clip.wav" type="audio/mpeg"></audio></td>
+            
+
+            <td class="text-center"><audio controls="" style="width: 320px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/video2audio/violin.wav" type="audio/mpeg"></audio></td>
+        </tr>
+        </tbody>
+    </table>
+
+    </div>
+      
+    <div class="container" id="abstractdiv">
+        <h2>personalized text-to-audio generation</h2>
+        Examples of personalized text-to-audio generation, given 1 origin audio and 1 prompt, add the prompt sound to the origin audio.
+        <table class="table table-responsive">
+            <thead>
+                <tr class="text-center">
+                    
+                    <td>prompt</td>
+                    
+                    <td>origin audio</td>
+                    
+                    <td>personalized audio</td>
+                    
+                </tr>
+                </thead>
+            <tbody>
+                
+            
+            <tr class="pure-table-odd">
+                    
+                <td>a cat meowing and young female speaking</td>  
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/video2audio/church+bell.wav" type="audio/mpeg"></audio></td>
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/video2audio/fireworks.wav" type="audio/mpeg"></audio></td>
+
+            </tr>
+    
+            <tr class="pure-table-odd">
+                    
+                <td>a cat meowing and young female speaking</td>  
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/video2audio/church+bell.wav" type="audio/mpeg"></audio></td>
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/video2audio/fireworks.wav" type="audio/mpeg"></audio></td>
+
+            </tr>
+            
+            <tr class="pure-table-odd">
+                    
+                <td>a cat meowing and young female speaking</td>  
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/video2audio/church+bell.wav" type="audio/mpeg"></audio></td>
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/video2audio/fireworks.wav" type="audio/mpeg"></audio></td>
+
+            </tr>
+
+            <tr class="pure-table-odd">
+                    
+                <td>a cat meowing and young female speaking</td>  
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/video2audio/church+bell.wav" type="audio/mpeg"></audio></td>
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="https://make-an-audio.s3.us-east-2.amazonaws.com/video2audio/fireworks.wav" type="audio/mpeg"></audio></td>
+
+            </tr>
+            </tbody>
+        </table>
+    
+        </div>    
+
+    </body>
+    </html>
+    
