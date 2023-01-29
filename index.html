@@ -35,7 +35,7 @@
     <div class="container">
         <h2>Abstract</h2>
         <span>
-            Large-scale multimodal generative modeling has created milestones in text-to-image and text-to-video generation. Its application to audio still lags behind due to two main reasons: the lack of large-scale datasets with high-quality text-audio pairs, and the complexity of modeling long continuous audio data. In this work, we propose Make-An-Audio with a prompt-enhanced diffusion model that addresses these gaps by 1) introducing pseudo prompt enhancement with a distill-then-reprogram approach which alleviates the data scarcity by using weekly-supervised data with language-free audios; 2) leveraging spectrogram autoencoder to predict the self-supervised audio representation instead of waveforms. Together with robust contrastive language-audio pretraining (CLAP) representations, Make-An-Audio achieves state-of-the-art results in both objective and subjective evaluation. Moreover, we present its controllability with classifier-free guidance and generalization for X-to-Audio with \textbf{``No Modality Left Behind''}, for the first time unlocking the ability to generate high-definition, high-fidelity audios given a user-defined modality input.
+            Large-scale multimodal generative modeling has created milestones in text-to-image and text-to-video generation. Its application to audio still lags behind due to two main reasons: the lack of large-scale datasets with high-quality text-audio pairs, and the complexity of modeling long continuous audio data. In this work, we propose Make-An-Audio with a prompt-enhanced diffusion model that addresses these gaps by 1) introducing pseudo prompt enhancement with a distill-then-reprogram approach which alleviates the data scarcity by using weekly-supervised data with language-free audios; 2) leveraging spectrogram autoencoder to predict the self-supervised audio representation instead of waveforms. Together with robust contrastive language-audio pretraining (CLAP) representations, Make-An-Audio achieves state-of-the-art results in both objective and subjective evaluation. Moreover, we present its controllability with classifier-free guidance and generalization for X-to-Audio with "No Modality Left Behind", for the first time unlocking the ability to generate high-definition, high-fidelity audios given a user-defined modality input.
         </span>
     </div>
 
@@ -56,7 +56,7 @@
     
     
     <div class="container" id="abstractdiv">
-        <h2>Text-to-audio samples: comparison to prior work</h2>
+        <h2>Text-to-Audio Generation: Comparison to prior work</h2>
         
         <table class="table table-responsive">
             <thead>
@@ -295,8 +295,8 @@
     </div>
     
     <div class="container" id="abstractdiv">
-        <h2>personalized text-to-audio generation</h2>
-        Examples of personalized text-to-audio generation, given 1 origin audio and 1 prompt, add the prompt sound to the origin audio.
+        <h2>Personalized Text-to-Audio Generation</h2>
+        It allows to inject unique objects into new scenes, transform them across different styles. For instance, when asked to generate ``baby crying'' given the initial sound of ``thunder'', our model produces realistic and faithful audio describing ``a baby cries in the thunder day".
         <table class="table table-responsive">
             <thead>
                 <tr class="text-center">
@@ -314,7 +314,7 @@
             
             <tr class="pure-table-odd">
                     
-                <td>thunder and a baby crying</td>  
+                <td>a baby crying</td>  
                 
                 
                 <td class="text-center"><audio controls="" style="width: 400px;"><source src="personalized/YSGaIvgwwWSE.wav" type="audio/mpeg"></audio></td>
@@ -338,7 +338,7 @@
             
             <tr class="pure-table-odd">
                     
-                <td>saw cutting wood and a man whistling</td>  
+                <td>a man whistling</td>  
                 
                 
                 <td class="text-center"><audio controls="" style="width: 400px;"><source src="personalized/Y3-hTZdJ3ZC4.wav" type="audio/mpeg"></audio></td>
@@ -366,7 +366,7 @@
 
 
     <div class="container" id="abstractdiv">
-        <h2>Samples: Audio Inpainting</h2>
+        <h2>Audio Inpainting</h2>
         
         <table class="table table-responsive">
             <thead>
@@ -571,8 +571,7 @@
     </div>
   
     <div class="container" id="abstractdiv">
-        <h2>Image to audio: use clip encoder to generate audio from image</h2>
-        Examples of image to audio given 1 image and gen audio from image.
+        <h2>Image-to-Audio Generation</h2>
         <table class="table table-responsive">
 
             <tbody>
@@ -639,8 +638,7 @@
     </div>
     
     <div class="container" id="abstractdiv">
-    <h2>Video: use clip encoder to generate audio from video</h2>
-    Examples of image to audio given 1 image and gen audio from image.
+    <h2>Video-to-Audio Generation</h2>
     <table class="table table-responsive">
 
         <tbody>
