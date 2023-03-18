@@ -1,5 +1,5 @@
 
-    <html>
+<html>
     <head>
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -24,11 +24,6 @@
         
                 <br>
 
-        
-                <div class="assets">
-                    <a href="https://openreview.net/forum?id=Srbl4AuTyd" target="_blank">[paper]</a>
-                    <a href="待定" target="_blank">[code]</a>
-                </div>
             </div>
         </div>
 
@@ -719,8 +714,255 @@
     </table>
 
     </div>
-      
+    
+    <div class="container" id="abstractdiv">
+        <h2>Ablation: Pseudo Prompt Enhancement (PPE) </h2>
+        <table class="table table-responsive">
+            <thead>
+                <tr class="text-center">
+                    
+                    <td>prompt</td>
+                    
+                    <td>w/o PPE</td>
+                    
+                    <td>Make-An-Audio</td>
+                    
+                </tr>
+                </thead>
+            <tbody>
+                
+            
+            <tr class="pure-table-odd">
+                    
+                <td>a cat meowing and young female speaking</td>  
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="txt2audio/ablation_study/a-cat-meowing-and-young-female-speaking_0.wav" type="audio/mpeg"></audio></td>
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="txt2audio/our_model/a-cat-meowing-and-young-female-speaking.wav" type="audio/mpeg"></audio></td>
 
+            </tr>
+    
+            <tr class="pure-table-odd">
+                    
+                <td>a chainsaw cutting as wood cracks and creaks</td>  
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="txt2audio/ablation_study/a-chainsaw-cutting-as-wood-cracks-and-creaks_0.wav" type="audio/mpeg"></audio></td>
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="txt2audio/our_model/a-chainsaw-cutting-as-wood-cracks-and-creaks.wav" type="audio/mpeg"></audio></td>
+
+            </tr>
+            
+            <tr class="pure-table-odd">
+                    
+                <td>a group of sheep are baaing</td>  
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="txt2audio/ablation_study/a-group-of-sheep-are-baaing_0.wav" type="audio/mpeg"></audio></td>
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="txt2audio/our_model/a-group-of-sheep-are-baaing.wav" type="audio/mpeg"></audio></td>
+
+            </tr>
+
+            <tr class="pure-table-odd">
+                    
+                <td>a horse galloping</td>  
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="txt2audio/ablation_study/a-horse-galloping_0.wav" type="audio/mpeg"></audio></td>
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="txt2audio/our_model/a-horse-galloping.wav" type="audio/mpeg"></audio></td>
+
+            </tr>
+
+            <tr class="pure-table-odd">
+                    
+                <td>a speedboat running as wind blows into a microphone</td>  
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="txt2audio/ablation_study/a-speedboat-running-as-wind-blows-into-a-microphone_0.wav" type="audio/mpeg"></audio></td>
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="txt2audio/our_model/a-speedboat-running-as-wind-blows-into-a-microphone.wav" type="audio/mpeg"></audio></td>
+
+            </tr>
+
+            <tr class="pure-table-odd">
+                    
+                <td>drums and music playing with a man speaking</td>  
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="txt2audio/ablation_study/drums-and-music-playing-with-a-man-speaking_0.wav" type="audio/mpeg"></audio></td>
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="txt2audio/our_model/drums-and-music-playing-with-a-man-speaking.wav" type="audio/mpeg"></audio></td>
+
+            </tr>
+
+            <tr class="pure-table-odd">
+                    
+                <td>Engine noise with other engines passing by</td>  
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="txt2audio/ablation_study/Engine-noise-with-other-engines-passing-by_0.wav" type="audio/mpeg"></audio></td>
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="txt2audio/our_model/Engine-noise-with-other-engines-passing-by.wav" type="audio/mpeg"></audio></td>
+
+            </tr>
+
+            <tr class="pure-table-odd">
+                    
+                <td>fireworks pop and explode</td>  
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="txt2audio/ablation_study/fireworks-pop-and-explode_0.wav" type="audio/mpeg"></audio></td>
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="txt2audio/our_model/fireworks-pop-and-explode.wav" type="audio/mpeg"></audio></td>
+
+            </tr>
+
+            <tr class="pure-table-odd">
+                    
+                <td>piano and violin plays</td>  
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="txt2audio/ablation_study/piano-and-violin-plays_0.wav" type="audio/mpeg"></audio></td>
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="txt2audio/our_model/piano-and-violin-plays.wav" type="audio/mpeg"></audio></td>
+
+            </tr>
+
+            <tr class="pure-table-odd">
+                    
+                <td>thunder as rain falling down</td>  
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="txt2audio/ablation_study/thunder-as-rain-falling-down_0.wav" type="audio/mpeg"></audio></td>
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="txt2audio/our_model/thunder-as-rain-falling-down.wav" type="audio/mpeg"></audio></td>
+
+            </tr>
+
+            <tr class="pure-table-odd">
+                    
+                <td>Train passing followed by short honk</td>  
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="txt2audio/ablation_study/Train-passing-followed-by-short-honk_0.wav" type="audio/mpeg"></audio></td>
+                
+                
+                <td class="text-center"><audio controls="" style="width: 400px;"><source src="txt2audio/our_model/Train-passing-followed-by-short-honk.wav" type="audio/mpeg"></audio></td>
+
+            </tr>
+            </tbody>
+        </table>
+    
+    </div>      
+
+    <div class="container">
+        <h2>Ablation: Video-Audio Temporal Alignment</h2>
+        <h4>Row2: Baseline trained with visual data, Row3: Make-An-Audio trained without visual data</h4>
+
+        <table class="table table-responsive">
+    
+            <tbody>
+                
+            
+            <tr class="pure-table-odd">
+
+                <td class="text-center"><video width="320" height="240" controls>
+                    <source src="video2audio/video_00011.mp4" type="video/mp4">
+                </video></td>
+    
+    
+                <td class="text-center"><video width="320" height="240" controls>
+                    <source src="video2audio/video_00012.mp4" type="video/mp4">
+                </video></td>
+            </tr>
+
+            <tr>
+
+                
+                <td class="text-center"><audio controls="" style="width: 320px;"><source src="video2audio/baseline/video_00011.wav" type="audio/mpeg"></audio></td>
+                
+    
+                <td class="text-center"><audio controls="" style="width: 320px;"><source src="video2audio/baseline/video_00012.wav" type="audio/mpeg"></audio></td>
+            </tr>
+
+            <tr>
+
+
+                <td class="text-center"><audio controls="" style="width: 320px;"><source src="video2audio/video_00011.wav" type="audio/mpeg"></audio></td>
+
+
+                <td class="text-center"><audio controls="" style="width: 320px;"><source src="video2audio/video_00007_guidance1.75_14.wav" type="audio/mpeg"></audio></td>
+            </tr>
+
+            </tbody>
+        </table>
+    
+    </div>
+
+
+
+
+    <div class="container">
+        <h2>Ablation: Image-to-Audio</h2>
+        <h4>Row2: Baseline trained with visual data, Row3: Make-An-Audio trained without visual data</h4>
+        <table class="table table-responsive">
+
+            <tbody>
+
+
+            <tr class="pure-table-odd">
+
+
+
+            <td class="text-center"><img src="./img2audio/ablation/coins.png" width="320" height="320"></td>
+
+
+            <td class="text-center"><img src="./img2audio/ablation/gear.png" width="320" height="320"></td>
+
+
+                <td class="text-center"><img src="./img2audio/ablation/toothbrush.png" width="320" height="320"></td>
+
+            </tr>
+
+            <tr>
+
+
+                <td class="text-center"><audio controls="" style="width: 320px;"><source src="img2audio/ablation/base_coin.wav" type="audio/mpeg"></audio></td>
+
+
+                <td class="text-center"><audio controls="" style="width: 320px;"><source src="img2audio/ablation/base_gear.wav" type="audio/mpeg"></audio></td>
+                <td class="text-center"><audio controls="" style="width: 320px;"><source src="img2audio/ablation/base_toothbrush.wav" type="audio/mpeg"></audio></td>
+
+            </tr>
+
+                        <tr>
+
+
+                <td class="text-center"><audio controls="" style="width: 320px;"><source src="img2audio/ablation/5_coins_guidance1.5_2.wav" type="audio/mpeg"></audio></td>
+
+
+                <td class="text-center"><audio controls="" style="width: 320px;"><source src="img2audio/ablation/4_gear_guidance1.5_8.wav" type="audio/mpeg"></audio></td>
+
+                            <td class="text-center"><audio controls="" style="width: 320px;"><source src="img2audio/ablation/3_toothbrush_guidance1.5_1.wav" type="audio/mpeg"></audio></td>
+
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
     </body>
     </html>
     
